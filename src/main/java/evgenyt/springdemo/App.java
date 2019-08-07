@@ -20,16 +20,14 @@ public class App
         // Get application context from file
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 "applicationContext.xml");
-        // Get factory bean
+        // Get factory bean and create session
         SessionFactory sessionFactory = context.getBean("sessionFactory",
                 SessionFactory.class);
-        // Create session
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        // Create person entity
+        // Create person entity and insert to table
         PersonEntity personEntity = new PersonEntity();
         personEntity.setName("Bloody Mary");
-        // Insert entity to table
         session.save(personEntity);
         // SELECT * FROM person
         List<PersonEntity> persons = session.createQuery("FROM PersonEntity").list();
